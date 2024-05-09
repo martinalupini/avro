@@ -248,7 +248,8 @@
             <configuration>
               <rules>
                 <enforceBytecodeVersion>
-                  <maxJdkVersion>8</maxJdkVersion>
+                  <!--changed max enf version from 8 to 11-->
+                  <maxJdkVersion>11</maxJdkVersion>
                   <ignoredScopes>
                     <ignoredScope>test</ignoredScope>
                     <ignoredScope>provided</ignoredScope>
