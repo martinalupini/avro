@@ -32,7 +32,7 @@
   <name>Apache Avro</name>
   <url>https://avro.apache.org</url>
   <description>Avro core components</description>
-  <packaging>bundle</packaging>
+  <packaging>pom</packaging>
 
   <properties>
     <main.basedir>${project.parent.parent.basedir}</main.basedir>
@@ -44,7 +44,14 @@
       *
     </osgi.import>
     <osgi.export>org.apache.avro*;version="${project.version}"</osgi.export>
+    <!-- jacoco aggregate isw2-->
+    <sonar.coverage.jacoco.xmlReportPaths>${maven.multiModuleProjectDirectory}/lang/java/avro/avro-jacoco/target/site/jacoco-aggregate/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
   </properties>
+
+  <modules>
+    <!--isw2-->
+    <module>avro-jacoco</module>
+  </modules>
 
   <build>
     <resources>
@@ -160,4 +167,31 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+
+  <profiles>
+    <!--Jacoco profile isw2-->
+    <profile>
+      <id>JacocoCoverage</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.jacoco</groupId>
+            <artifactId>jacoco-maven-plugin</artifactId>
+            <version>0.8.10</version>
+            <executions>
+              <execution>
+                <id>prepare-agent</id>
+                <goals>
+                  <goal>prepare-agent</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>

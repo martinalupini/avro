@@ -70,7 +70,10 @@
     <javacc-plugin.version>3.0.3</javacc-plugin.version>
     <javacc.version>7.0.13</javacc.version>
     <maven-antrun-plugin.version>3.1.0</maven-antrun-plugin.version>
+    <!-- jacoco aggregate isw2-->
+    <!--sonar.coverage.jacoco.xmlReportPaths>${maven.multiModuleProjectDirectory}/lang/java/avro-jacoco/target/site/jacoco-aggregate/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths-->
   </properties>
+
 
   <modules>
     <module>android</module>
@@ -91,6 +94,8 @@
     <module>integration-test</module>
     <module>perf</module>
     <module>interop-data-test</module>
+    <!-- isw2-->
+    <!-- module>avro-jacoco</module-->
   </modules>
 
   <build>
@@ -314,7 +319,9 @@
             <eclipse>
               <!-- Avro uses Sun's java code style conventions with 2 spaces, this is a modified version of
                    the eclipse formatter -->
-              <file>${main.basedir}/lang/java/eclipse-java-formatter.xml</file>
+              <!-- isw2-->
+              <!--file>${main.basedir}/lang/java/eclipse-java-formatter.xml</file-->
+              <file>/home/martina/IdeaProjects/avro/lang/java/eclipse-java-formatter.xml</file>
               <version>4.19</version>
             </eclipse>
             <!-- Temporarily disabled for JDK 16+ builds -->
@@ -499,6 +506,32 @@
         <hadoop.version>2.10.1</hadoop.version>
       </properties>
     </profile>
+
+    <!-- Jacoco profile isw2-->
+    <!--profile>
+      <id>JacocoCoverage</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.jacoco</groupId>
+            <artifactId>jacoco-maven-plugin</artifactId>
+            <version>0.8.10</version>
+            <executions>
+              <execution>
+                <id>prepare-agent</id>
+                <goals>
+                  <goal>prepare-agent</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile-->
+
   </profiles>
 
   <!-- dependencyManagement can be used to define dependency versions, scopes, and
