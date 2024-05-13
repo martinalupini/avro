@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import static org.apache.avro.Schema.Type.STRING;
 
-public class SchemaTest {
+public class TestSchema {
 
   @Test
   public void testSchema() {
