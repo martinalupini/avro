@@ -71,10 +71,6 @@
     <javacc.version>7.0.13</javacc.version>
     <maven-antrun-plugin.version>3.1.0</maven-antrun-plugin.version>
 
-    <!-- SonarCloud additions isw2-->
-    <sonar.organization>martinalupini</sonar.organization>
-    <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-
 
     <!-- JaCoCo additions isw2-->
     <sonar.coverage.jacoco.xmlReportPaths>${maven.multiModuleProjectDirectory}/lang/java/avro-jacoco/target/site/jacoco-aggregate/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>

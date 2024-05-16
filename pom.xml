@@ -67,6 +67,11 @@
 
     <!-- Pin output timestamp to make the Java build reproducible -->
     <project.build.outputTimestamp>10</project.build.outputTimestamp>
+
+    <!-- SonarCloud additions isw2-->
+    <sonar.organization>martinalupini</sonar.organization>
+    <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+
   </properties>
 
   <modules>
