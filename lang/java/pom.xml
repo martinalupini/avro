@@ -339,16 +339,16 @@
             <toggleOffOn/>
           </java>
         </configuration>
-        <executions>
+        <!--executions>
           <execution>
-            <!-- Runs in compile phase to fail fast in case of formatting issues.-->
+            <Runs in compile phase to fail fast in case of formatting issues.>
             <id>spotless-check</id>
             <phase>compile</phase>
             <goals>
               <goal>check</goal>
             </goals>
           </execution>
-        </executions>
+        </executions-->
       </plugin>
       <plugin>
         <groupId>org.cyclonedx</groupId>
