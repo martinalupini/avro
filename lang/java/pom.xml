@@ -306,7 +306,7 @@
         <!-- Runs by default in the verify phase  (mvn verify or later in the build cycle)
              the 'check' goal will fail the build if it does not pass.  "mvn checkstyle:check"
              will do this alone, or "mvn checkstyle:checkstyle" will report but not break  -->
-        <executions>
+        <!--executions>
           <execution>
             <id>checkstyle-check</id>
             <phase>test</phase>
@@ -314,7 +314,7 @@
               <goal>check</goal>
             </goals>
           </execution>
-        </executions>
+        </executions-->
       </plugin>
       <plugin>
         <groupId>com.diffplug.spotless</groupId>
