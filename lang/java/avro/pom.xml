@@ -164,15 +164,14 @@
   </dependencies>
 
   <profiles>
-    <!-- Badua profile isw2 -->
+    <!-- Ba-dua profile isw2-->
     <profile>
       <id>BaduaCoverage</id>
       <activation>
         <activeByDefault>false</activeByDefault>
       </activation>
       <properties>
-        <ba-dua.version>0.6.0</ba-dua.version>
-        <argLine>-javaagent:target/dependency/ba-dua-agent-rt-${ba-dua.version}-all.jar -Doutput.file=target/badua.ser</argLine>
+        <argLine>-javaagent:target/dependency/ba-dua-agent-rt-${ba-dua.version}-all.jar -Doutput.file=${project.build.directory}/badua.ser</argLine>
       </properties>
       <dependencies>
         <dependency>
@@ -183,7 +182,6 @@
       </dependencies>
       <build>
         <plugins>
-
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-dependency-plugin</artifactId>
@@ -206,7 +204,6 @@
               </execution>
             </executions>
           </plugin>
-
           <plugin>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>exec-maven-plugin</artifactId>
@@ -233,11 +230,9 @@
               </execution>
             </executions>
           </plugin>
-
         </plugins>
       </build>
     </profile>
-
   </profiles>
 
 </project>
