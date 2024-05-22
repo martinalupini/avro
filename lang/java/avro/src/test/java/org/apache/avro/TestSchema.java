@@ -9,6 +9,7 @@ public class TestSchema {
 
   @Test
   public void testSchema() {
+    int i;
     Schema schema = Schema.create(STRING);
 
     Assert.assertEquals(schema, schema);
