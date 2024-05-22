@@ -123,6 +123,14 @@
               <artifactId>checkstyle</artifactId>
               <version>${checkstyle.version}</version>
             </dependency>
+
+            <!-- PIT dependency isw2 -->
+            <dependency>
+              <groupId>org.pitest</groupId>
+              <artifactId>pitest-maven</artifactId>
+              <version>1.14.0</version>
+            </dependency>
+
           </dependencies>
         </plugin>
         <plugin>
