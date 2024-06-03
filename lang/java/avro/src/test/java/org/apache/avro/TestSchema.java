@@ -4,9 +4,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
-import org.junit.runners.Parameterized.Parameters;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 import org.mockito.stubbing.Answer;
 
 import java.util.Arrays;
@@ -14,102 +14,99 @@ import java.util.Collection;
 
 import static org.apache.avro.Schema.Type.*;
 import static org.apache.avro.Utils.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-@RunWith(value= Parameterized.class)
+@RunWith(Parameterized.class)
 public class TestSchema {
 
-    private JsonNode schema;
-    private Schema.Names names;
-    private Schema expectedSchema;
-    private Class<Exception> expectedException;
+  private JsonNode schema;
+  private Schema.Names names;
+  private Schema expectedSchema;
+  private boolean expectedException;
 
-    @Parameters
-    public static Collection<Object[]> getParameters() throws JsonProcessingException {
-      return Arrays.asList(new Object[][]{
+  @Parameters
+  public static Collection<Object[]> getParameters() throws JsonProcessingException {
+    return Arrays.asList(new Object[][]{
 
-          // null Names (i tipi primitivi non dovrebbero avere namespace
-          {getJsonNode(TypeJson.NULL), null, Schema.create(NULL), Exception.class},
-          {getJsonNode(TypeJson.BOOLEAN), null, Schema.create(BOOLEAN), Exception.class},
-          {getJsonNode(TypeJson.INT), null, Schema.create(INT), Exception.class},
-          {getJsonNode(TypeJson.LONG), null, Schema.create(LONG), Exception.class},
-          {getJsonNode(TypeJson.FLOAT), null, Schema.create(FLOAT), Exception.class},
-          {getJsonNode(TypeJson.DOUBLE), null, Schema.create(DOUBLE), Exception.class},
-          {getJsonNode(TypeJson.BYTES), null, Schema.create(BYTES), Exception.class},
-          {getJsonNode(TypeJson.STRING), null, Schema.create(STRING), Exception.class},
-          {getJsonNode(TypeJson.RECORD), null, getRecord(), Exception.class},
-          {getJsonNode(TypeJson.ENUM), null, getEnum(), Exception.class},
-          {getJsonNode(TypeJson.ARRAY), null, getArray(), Exception.class},
-          {getJsonNode(TypeJson.MAP), null, getMap(), Exception.class},
-          {getJsonNode(TypeJson.UNION), null, getUnion(), Exception.class},
-          {getJsonNode(TypeJson.FIXED), null, getFixed(), Exception.class},
-          {getJsonNode(TypeJson.INVALID), null, null, Exception.class},
+        // null Names (i tipi primitivi non dovrebbero avere namespace
+        {getJsonNode(TypeJson.NULL), null, Schema.create(NULL), true},
+        {getJsonNode(TypeJson.BOOLEAN), null, Schema.create(BOOLEAN), true},
+        {getJsonNode(TypeJson.INT), null, Schema.create(INT), true},
+        {getJsonNode(TypeJson.LONG), null, Schema.create(LONG), true},
+        {getJsonNode(TypeJson.FLOAT), null, Schema.create(FLOAT), true},
+        {getJsonNode(TypeJson.DOUBLE), null, Schema.create(DOUBLE), true},
+        {getJsonNode(TypeJson.BYTES), null, Schema.create(BYTES), true},
+        {getJsonNode(TypeJson.STRING), null, Schema.create(STRING), true},
+        {getJsonNode(TypeJson.RECORD), null, getRecord(), true},
+        {getJsonNode(TypeJson.ENUM), null, getEnum(), true },
+        {getJsonNode(TypeJson.ARRAY), null, getArray(), true},
+        {getJsonNode(TypeJson.MAP), null, getMap(), true},
+        {getJsonNode(TypeJson.UNION), null, getUnion(), true},
+        {getJsonNode(TypeJson.FIXED), null, getFixed(), true},
+        {getJsonNode(TypeJson.INVALID), null, null, true},
 
-          // Names validi (ottenuti tramite il costruttore Names("org.apache.avro")
-          {getJsonNode(TypeJson.NULL), new Schema.Names("org.apache.avro"), Schema.create(NULL), Exception.class},
-          {getJsonNode(TypeJson.BOOLEAN), new Schema.Names("org.apache.avro"), Schema.create(BOOLEAN), null},
-          {getJsonNode(TypeJson.INT), new Schema.Names("org.apache.avro"), Schema.create(INT), null},
-          {getJsonNode(TypeJson.LONG), new Schema.Names("org.apache.avro"), Schema.create(LONG), null},
-          {getJsonNode(TypeJson.FLOAT), new Schema.Names("org.apache.avro"), Schema.create(FLOAT), null},
-          {getJsonNode(TypeJson.DOUBLE), new Schema.Names("org.apache.avro"), Schema.create(DOUBLE), null},
-          {getJsonNode(TypeJson.BYTES), new Schema.Names("org.apache.avro"), Schema.create(BYTES), null},
-          {getJsonNode(TypeJson.STRING), new Schema.Names("org.apache.avro"), Schema.create(STRING), null},
-          {getJsonNode(TypeJson.RECORD), new Schema.Names("org.apache.avro"), getRecord(), null},
-          {getJsonNode(TypeJson.ENUM), new Schema.Names("org.apache.avro"), getEnum(), null},
-          {getJsonNode(TypeJson.ARRAY), new Schema.Names("org.apache.avro"), getArray(), null},
-          {getJsonNode(TypeJson.MAP), new Schema.Names("org.apache.avro"), getMap(), null},
-          {getJsonNode(TypeJson.UNION), new Schema.Names("org.apache.avro"), getUnion(), null},
-          {getJsonNode(TypeJson.FIXED), new Schema.Names("org.apache.avro"), getFixed(), null},
-          {getJsonNode(TypeJson.INVALID), new Schema.Names("org.apache.avro"), null, Exception.class},
+        // Names validi (ottenuti tramite il costruttore Names("org.apache.avro")
+        {getJsonNode(TypeJson.NULL), new Schema.Names("org.apache.avro"), Schema.create(NULL), true},
+        {getJsonNode(TypeJson.BOOLEAN), new Schema.Names("org.apache.avro"), Schema.create(BOOLEAN), false},
+        {getJsonNode(TypeJson.INT), new Schema.Names("org.apache.avro"), Schema.create(INT), false},
+        {getJsonNode(TypeJson.LONG), new Schema.Names("org.apache.avro"), Schema.create(LONG), false},
+        {getJsonNode(TypeJson.FLOAT), new Schema.Names("org.apache.avro"), Schema.create(FLOAT), false},
+        {getJsonNode(TypeJson.DOUBLE), new Schema.Names("org.apache.avro"), Schema.create(DOUBLE), false},
+        {getJsonNode(TypeJson.BYTES), new Schema.Names("org.apache.avro"), Schema.create(BYTES), false},
+        {getJsonNode(TypeJson.STRING), new Schema.Names("org.apache.avro"), Schema.create(STRING), false},
+        {getJsonNode(TypeJson.RECORD), new Schema.Names("org.apache.avro"), getRecord(), false},
+        {getJsonNode(TypeJson.ENUM), new Schema.Names("org.apache.avro"), getEnum(), false},
+        {getJsonNode(TypeJson.ARRAY), new Schema.Names("org.apache.avro"), getArray(), false},
+        {getJsonNode(TypeJson.MAP), new Schema.Names("org.apache.avro"), getMap(), false},
+        {getJsonNode(TypeJson.UNION), new Schema.Names("org.apache.avro"), getUnion(), false},
+        {getJsonNode(TypeJson.FIXED), new Schema.Names("org.apache.avro"), getFixed(), false},
+        {getJsonNode(TypeJson.INVALID), new Schema.Names("org.apache.avro"), null, true},
 
-          // Names non valido
-          {getJsonNode(TypeJson.NULL), getInvalidNames(), Schema.create(NULL), Exception.class},
-          {getJsonNode(TypeJson.BOOLEAN), getInvalidNames(), Schema.create(BOOLEAN), Exception.class},
-          {getJsonNode(TypeJson.INT), getInvalidNames(), Schema.create(INT), Exception.class},
-          {getJsonNode(TypeJson.LONG), getInvalidNames(), Schema.create(LONG), Exception.class},
-          {getJsonNode(TypeJson.FLOAT), getInvalidNames(), Schema.create(FLOAT), Exception.class},
-          {getJsonNode(TypeJson.DOUBLE), getInvalidNames(), Schema.create(DOUBLE), Exception.class},
-          {getJsonNode(TypeJson.BYTES), getInvalidNames(), Schema.create(BYTES), Exception.class},
-          {getJsonNode(TypeJson.STRING), getInvalidNames(), Schema.create(STRING), Exception.class},
-          {getJsonNode(TypeJson.RECORD), getInvalidNames(), getRecord(), Exception.class},
-          {getJsonNode(TypeJson.ENUM), getInvalidNames(), getEnum(), Exception.class},
-          {getJsonNode(TypeJson.ARRAY), getInvalidNames(), getArray(), Exception.class},
-          {getJsonNode(TypeJson.MAP), getInvalidNames(), getMap(), Exception.class},
-          {getJsonNode(TypeJson.UNION), getInvalidNames(), getUnion(), Exception.class},
-          {getJsonNode(TypeJson.FIXED), getInvalidNames(), getFixed(), Exception.class},
-          {getJsonNode(TypeJson.INVALID), getInvalidNames(), null, Exception.class},
+        // Names non valido
+        {getJsonNode(TypeJson.NULL), getInvalidNames(), Schema.create(NULL), true},
+        {getJsonNode(TypeJson.BOOLEAN), getInvalidNames(), Schema.create(BOOLEAN), true},
+        {getJsonNode(TypeJson.INT), getInvalidNames(), Schema.create(INT), true},
+        {getJsonNode(TypeJson.LONG), getInvalidNames(), Schema.create(LONG), true},
+        {getJsonNode(TypeJson.FLOAT), getInvalidNames(), Schema.create(FLOAT), true},
+        {getJsonNode(TypeJson.DOUBLE), getInvalidNames(), Schema.create(DOUBLE), true},
+        {getJsonNode(TypeJson.BYTES), getInvalidNames(), Schema.create(BYTES), true},
+        {getJsonNode(TypeJson.STRING), getInvalidNames(), Schema.create(STRING), true},
+        {getJsonNode(TypeJson.RECORD), getInvalidNames(), getRecord(), true},
+        {getJsonNode(TypeJson.ENUM), getInvalidNames(), getEnum(), true},
+        {getJsonNode(TypeJson.ARRAY), getInvalidNames(), getArray(), true},
+        {getJsonNode(TypeJson.MAP), getInvalidNames(), getMap(), true},
+        {getJsonNode(TypeJson.UNION), getInvalidNames(), getUnion(), true},
+        {getJsonNode(TypeJson.FIXED), getInvalidNames(), getFixed(), true},
+        {getJsonNode(TypeJson.INVALID), getInvalidNames(), null, true},
 
 
-      });
+    });
+  }
+
+  public TestSchema(JsonNode schema, Schema.Names names, Schema expectedSchema, boolean expectedException){
+    this.schema = schema;
+    this.names = names;
+    this.expectedSchema = expectedSchema;
+    this.expectedException = expectedException;
+  }
+
+  @Test
+  public void testSchemaParse() {
+
+    try {
+
+      Schema actualSchema = Schema.parse(schema, names);
+      assertEquals(expectedSchema, actualSchema);
+      assertFalse("An exception was expected.", expectedException);
+
+    } catch (Exception e) {
+      assertTrue(expectedException);
     }
 
-    public TestSchema(JsonNode schema, Schema.Names names, Schema expectedSchema, Class<Exception> expectedException){
-        this.schema = schema;
-        this.names = names;
-        this.expectedSchema = expectedSchema;
-        this.expectedException = expectedException;
-    }
-
-    @Test
-    public void testSchemaParse() {
-
-      if (expectedException != null) {
-
-        assertThrows(expectedException, () -> {
-          Schema.parse(schema, names);
-        });
-      } else {
-
-        Schema actualSchema = Schema.parse(schema, names);
-
-        assertEquals(expectedSchema, actualSchema);
-      }
-
-    }
+  }
 
 
   private static Schema.Names getInvalidNames(){
@@ -124,9 +121,9 @@ public class TestSchema {
 
 
   /*
-  *   Per ottenere le istanze valide mi sono basata sulla documentazione presente al sito
-  *   https://avro.apache.org/docs/1.11.1/specification/
-  */
+   *   Per ottenere le istanze valide mi sono basata sulla documentazione presente al sito
+   *   https://avro.apache.org/docs/1.11.1/specification/
+   */
   private static JsonNode getJsonNode(TypeJson type) throws JsonProcessingException {
 
     JsonNode jsonNode = null;
