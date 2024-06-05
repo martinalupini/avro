@@ -6,14 +6,13 @@ public class MockNames extends Schema.Names {
 
   @Override
   public void add(Schema schema) {
-    //throw new RuntimeException("add not available");
+    throw new RuntimeException("add not available");
   }
 
 
   @Override
   public Schema get(String name) {
-    //throw new RuntimeException("get not available");
-    return null;
+    throw new RuntimeException("get not available");
   }
 
 
