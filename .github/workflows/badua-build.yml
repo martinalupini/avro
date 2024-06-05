@@ -31,7 +31,7 @@ jobs:
           git checkout d2401f0
           mvn clean install
           cd ..
-      - name: Build and analyze bookkeeper project
+      - name: Build and analyze avro project
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
         run: mvn clean verify -P BaduaCoverage

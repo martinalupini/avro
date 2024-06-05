@@ -7,7 +7,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-import org.mockito.stubbing.Answer;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -15,9 +14,6 @@ import java.util.Collection;
 import static org.apache.avro.Schema.Type.*;
 import static org.apache.avro.Utils.*;
 import static org.junit.Assert.*;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 @RunWith(Parameterized.class)
 public class TestSchema {
@@ -66,21 +62,21 @@ public class TestSchema {
         {getJsonNode(TypeJson.INVALID), new Schema.Names("org.apache.avro"), null, true},
 
         // Names non valido
-        {getJsonNode(TypeJson.NULL), getInvalidNames(), Schema.create(NULL), true},
-        {getJsonNode(TypeJson.BOOLEAN), getInvalidNames(), Schema.create(BOOLEAN), true},
-        {getJsonNode(TypeJson.INT), getInvalidNames(), Schema.create(INT), true},
-        {getJsonNode(TypeJson.LONG), getInvalidNames(), Schema.create(LONG), true},
-        {getJsonNode(TypeJson.FLOAT), getInvalidNames(), Schema.create(FLOAT), true},
-        {getJsonNode(TypeJson.DOUBLE), getInvalidNames(), Schema.create(DOUBLE), true},
-        {getJsonNode(TypeJson.BYTES), getInvalidNames(), Schema.create(BYTES), true},
-        {getJsonNode(TypeJson.STRING), getInvalidNames(), Schema.create(STRING), true},
-        {getJsonNode(TypeJson.RECORD), getInvalidNames(), getRecord(), true},
-        {getJsonNode(TypeJson.ENUM), getInvalidNames(), getEnum(), true},
-        {getJsonNode(TypeJson.ARRAY), getInvalidNames(), getArray(), true},
-        {getJsonNode(TypeJson.MAP), getInvalidNames(), getMap(), true},
-        {getJsonNode(TypeJson.UNION), getInvalidNames(), getUnion(), true},
-        {getJsonNode(TypeJson.FIXED), getInvalidNames(), getFixed(), true},
-        {getJsonNode(TypeJson.INVALID), getInvalidNames(), null, true},
+        {getJsonNode(TypeJson.NULL), new MockNames(), Schema.create(NULL), true},
+        {getJsonNode(TypeJson.BOOLEAN), new MockNames(), Schema.create(BOOLEAN), true},
+        {getJsonNode(TypeJson.INT), new MockNames(), Schema.create(INT), true},
+        {getJsonNode(TypeJson.LONG), new MockNames(), Schema.create(LONG), true},
+        {getJsonNode(TypeJson.FLOAT), new MockNames(), Schema.create(FLOAT), true},
+        {getJsonNode(TypeJson.DOUBLE), new MockNames(), Schema.create(DOUBLE), true},
+        {getJsonNode(TypeJson.BYTES), new MockNames(), Schema.create(BYTES), true},
+        {getJsonNode(TypeJson.STRING), new MockNames(), Schema.create(STRING), true},
+        {getJsonNode(TypeJson.RECORD), new MockNames(), getRecord(), true},
+        {getJsonNode(TypeJson.ENUM), new MockNames(), getEnum(), true},
+        {getJsonNode(TypeJson.ARRAY), new MockNames(), getArray(), true},
+        {getJsonNode(TypeJson.MAP), new MockNames(), getMap(), true},
+        {getJsonNode(TypeJson.UNION), new MockNames(), getUnion(), true},
+        {getJsonNode(TypeJson.FIXED), new MockNames(), getFixed(), true},
+        {getJsonNode(TypeJson.INVALID), new MockNames(), null, true},
 
 
     });
@@ -109,15 +105,7 @@ public class TestSchema {
   }
 
 
-  private static Schema.Names getInvalidNames(){
-    Schema.Names name = mock(Schema.Names.class);
-    when(name.get(anyString())).then((Answer<String>) invocation -> {
-      throw new Exception("get not available");
-    });
 
-    return name;
-
-  }
 
 
   /*
