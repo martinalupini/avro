@@ -26,6 +26,22 @@ public class TestSchemaValidNames {
   public static Collection<Object[]> getParameters() throws JsonProcessingException {
     return Arrays.asList(new Object[][]{
 
+        // JsonNode null
+        {null, "valid", Schema.create(NULL), true},
+        {null, "valid", Schema.create(BOOLEAN), true},
+        {null, "valid", Schema.create(INT), true},
+        {null, "valid", Schema.create(LONG), true},
+        {null, "valid", Schema.create(FLOAT), true},
+        {null, "valid", Schema.create(DOUBLE), true},
+        {null, "valid", Schema.create(BYTES), true},
+        {null, "valid", Schema.create(STRING), true},
+        {null, "valid", getRecord(), true},
+        {null, "valid", getEnum(), true},
+        {null, "valid", getArray(), true},
+        {null, "valid", getMap(), true},
+        {null, "valid", getUnion(), true},
+        {null, "valid", getFixed(), true},
+        {null, "valid", null, true},
 
         // Names validi (ottenuti tramite il costruttore Names("org.apache.avro")
         {getJsonNode(TypeJson.NULL), "valid", Schema.create(NULL), true},
