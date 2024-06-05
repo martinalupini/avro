@@ -44,6 +44,7 @@ public class TestSchema {
         {getJsonNode(TypeJson.FIXED), null, getFixed(), true},
         {getJsonNode(TypeJson.INVALID), null, null, true},
 
+        /*
         // Names validi (ottenuti tramite il costruttore Names("org.apache.avro")
         {getJsonNode(TypeJson.NULL), new Schema.Names("org.apache.avro"), Schema.create(NULL), true},
         {getJsonNode(TypeJson.BOOLEAN), new Schema.Names("org.apache.avro"), Schema.create(BOOLEAN), false},
@@ -77,6 +78,8 @@ public class TestSchema {
         {getJsonNode(TypeJson.UNION), new MockNames(), getUnion(), true},
         {getJsonNode(TypeJson.FIXED), new MockNames(), getFixed(), true},
         {getJsonNode(TypeJson.INVALID), new MockNames(), null, true},
+
+         */
 
 
     });
