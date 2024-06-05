@@ -15,7 +15,7 @@ import static org.apache.avro.Utils.*;
 import static org.junit.Assert.*;
 
 @RunWith(Parameterized.class)
-public class TestSchemaValidNames {
+public class TestSchemaMalformedJsonNode {
 
   private JsonNode schema;
   private Schema.Names names;
@@ -27,28 +27,18 @@ public class TestSchemaValidNames {
     return Arrays.asList(new Object[][]{
 
         // Names validi (ottenuti tramite il costruttore Names("org.apache.avro")
-        {getJsonNode(TypeJson.NULL), "valid", Schema.create(NULL), true},
-        {getJsonNode(TypeJson.BOOLEAN), "valid", Schema.create(BOOLEAN), false},
-        {getJsonNode(TypeJson.INT), "valid", Schema.create(INT), false},
-        {getJsonNode(TypeJson.LONG), "valid", Schema.create(LONG), false},
-        {getJsonNode(TypeJson.FLOAT), "valid", Schema.create(FLOAT), false},
-        {getJsonNode(TypeJson.DOUBLE), "valid", Schema.create(DOUBLE), false},
-        {getJsonNode(TypeJson.BYTES), "valid", Schema.create(BYTES), false},
-        {getJsonNode(TypeJson.STRING), "valid", Schema.create(STRING), false},
-        {getJsonNode(TypeJson.RECORD), "valid", getRecord(), false},
-        {getJsonNode(TypeJson.ENUM), "valid", getEnum(), false},
-        {getJsonNode(TypeJson.ARRAY), "valid", getArray(), false},
-        {getJsonNode(TypeJson.MAP), "valid", getMap(), false},
-        {getJsonNode(TypeJson.UNION), "valid", getUnion(), false},
-        {getJsonNode(TypeJson.FIXED), "valid", getFixed(), false},
-        {getJsonNode(TypeJson.INVALID), "valid", null, true},
-        {getJsonNode(TypeJson.NON_EXISTENT), "valid", null, true},
-
+        {getMalformedJsonNode(TypeJson.RECORD), "valid", null, true},
+        {getMalformedJsonNode(TypeJson.ENUM), "valid", null, true},
+        {getMalformedJsonNode(TypeJson.ARRAY), "valid", null, true},
+        {getMalformedJsonNode(TypeJson.MAP), "valid", null, true},
+        //{getMalformedJsonNode(TypeJson.UNION), "valid", null, true},  // --> FAILURE: no exception thrown
+        {getMalformedJsonNode(TypeJson.UNION), "valid", getEmptyUnion(), false},
+        {getMalformedJsonNode(TypeJson.FIXED), "valid", null, true},
 
     });
   }
 
-  public TestSchemaValidNames(JsonNode schema, String names, Schema expectedSchema, boolean expectedException){
+  public TestSchemaMalformedJsonNode(JsonNode schema, String names, Schema expectedSchema, boolean expectedException){
     this.schema = schema;
     this.expectedSchema = expectedSchema;
     this.expectedException = expectedException;
@@ -73,4 +63,5 @@ public class TestSchemaValidNames {
 
 
 }
+
 

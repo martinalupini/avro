@@ -263,7 +263,7 @@
                 <param>org.apache.avro.Schema</param>
               </targetClasses>
               <targetTests>
-                <param>org.apache.avro.TestSchema</param>
+                <param>org.apache.avro.TestSchemaNullJsonNode</param>
               </targetTests>
               <avoidCallsTo>
                 <avoidCallsTo>org.slf4j</avoidCallsTo>

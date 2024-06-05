@@ -63,9 +63,34 @@ public class Utils {
 
   }
 
+  public static Schema getEmptyUnion(){
+    Schema schema = Schema.createUnion();
+    return schema;
+  }
+
   public static Schema getFixed(){
     return Schema.createFixed("md5", null, namespace, 16);
   }
+
+  public static Schema getError(){
+    Schema longSchema = Schema.create(Schema.Type.LONG);
+    Schema.Field field = new Schema.Field("value", longSchema, null, null);
+    List<Schema.Field> recordFields = new ArrayList<>();
+    recordFields.add(field);
+
+    return Schema.createRecord("error", null, namespace, true, recordFields);
+  }
+
+  public static Schema getEnumDefault(){
+    List<String> enumValues = new ArrayList<>();
+    enumValues.add("SPADES");
+    enumValues.add("HEARTS");
+    enumValues.add("DIAMONDS");
+    enumValues.add("CLUBS");
+    Schema schema = Schema.createEnum("Suit", null, namespace, enumValues, "SPADES");
+    return schema;
+  }
+
 
 
 
@@ -171,11 +196,131 @@ public class Utils {
       jsonNode = mapper.readTree(str);
       break;
 
+    case NON_EXISTENT:
+      str = "{\"type\":\"foo\"}";
+      jsonNode = mapper.readTree(str);
+      break;
+
+    // Aggiunto dopo report Jacoco
+    case ERROR:
+      str = "{\"type\":\"error\",\"name\":\"error\",\"namespace\":\"org.apache.avro\","+
+          "\"fields\":[" +
+          "{\"name\":\"value\",\"type\":\"long\"}" +
+          "]}";
+      jsonNode = mapper.readTree(str);
+      break;
+
+    case NUMBER:
+      jsonNode = mapper.valueToTree(30);
+      break;
+
+    case EMPTY_ENUM:
+      str = "{" +
+          "\"type\":\"enum\"," +
+          "\"name\":\"Suit\"}";
+      jsonNode = mapper.readTree(str);
+      break;
+
+    case ENUM_DEFAULT:
+      str = "{" +
+          "\"type\":\"enum\"," +
+          "\"name\":\"Suit\"," +
+          "\"default\":\"SPADES\"," +
+          "\"symbols\":[\"SPADES\",\"HEARTS\",\"DIAMONDS\",\"CLUBS\"]" +
+          "}";
+      jsonNode = mapper.readTree(str);
+      break;
+
+    case EMPTY_RECORD:
+      str = "{" +
+          "\"type\":\"record\"," +
+          "\"name\":\"LongList\"," +
+          "\"aliases\":[\"LinkedLongs\"]}";
+      jsonNode = mapper.readTree(str);
+      break;
+
+    case FIXED_SIZE_NULL:
+      str = "{\"type\":\"fixed\",\"name\":\"md5\"}";
+      jsonNode = mapper.readTree(str);
+      break;
+
+    case RECORD_FIELDS_NO_ARRAY:
+      str = "{" +
+          "\"type\":\"record\"," +
+          "\"name\":\"LongList\"," +
+          "\"aliases\":[\"LinkedLongs\"]," +
+          "\"fields\": \"ciao\"}";
+      jsonNode = mapper.readTree(str);
+      break;
+
+    case ENUM_SYMBOLS_NO_ARRAY:
+      str = "{" +
+          "\"type\":\"enum\"," +
+          "\"name\":\"Suit\"," +
+          "\"symbols\":\"SPADES\"}";
+      jsonNode = mapper.readTree(str);
+      break;
+
+    case FIXED_SIZE_NO_INT:
+      str = "{\"type\":\"fixed\",\"size\":\"ciao\",\"name\":\"md5\"}";
+      jsonNode = mapper.readTree(str);
+      break;
+
+    case INVALID_ARRAY:
+      str = "[30]";
+      jsonNode = mapper.readTree(str);
+      break;
+
     }
 
     return jsonNode;
 
   }
+
+  public static JsonNode getMalformedJsonNode(TypeJson type) throws JsonProcessingException {
+
+    JsonNode jsonNode = null;
+    ObjectMapper mapper = new ObjectMapper();
+    String str;
+
+    switch (type) {
+
+    case RECORD:
+      str = "{\"type\":\"record\"}";
+      jsonNode = mapper.readTree(str);
+      break;
+
+    case ENUM:
+      str = "{\"type\":\"enum\"}";
+      jsonNode = mapper.readTree(str);
+      break;
+
+    case ARRAY:
+      str = "{\"type\":\"array\"}";
+      jsonNode = mapper.readTree(str);
+      break;
+
+    case MAP:
+      str = "{\"type\":\"map\"}";
+      jsonNode = mapper.readTree(str);
+      break;
+
+    case UNION:
+      str = "[]";
+      jsonNode = mapper.readTree(str);
+      break;
+
+    case FIXED:
+      str = "{\"type\":\"fixed\"}";
+      jsonNode = mapper.readTree(str);
+      break;
+
+    }
+
+    return jsonNode;
+
+  }
+
 
   public enum TypeJson {
     NULL,
@@ -192,7 +337,19 @@ public class Utils {
     MAP,
     UNION,
     FIXED,
-    INVALID
+    INVALID,
+    NON_EXISTENT,
+    // Aggiunto dopo il report Jacoco
+    ERROR,
+    NUMBER,
+    ENUM_DEFAULT,
+    EMPTY_ENUM,
+    EMPTY_RECORD,
+    FIXED_SIZE_NULL,
+    RECORD_FIELDS_NO_ARRAY,
+    ENUM_SYMBOLS_NO_ARRAY,
+    FIXED_SIZE_NO_INT,
+    INVALID_ARRAY
   }
 
 
