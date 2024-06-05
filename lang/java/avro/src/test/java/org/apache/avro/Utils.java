@@ -271,6 +271,9 @@ public class Utils {
       jsonNode = mapper.readTree(str);
       break;
 
+    case TEXTUAL:
+      jsonNode = mapper.valueToTree("hello");
+
     }
 
     return jsonNode;
@@ -349,7 +352,9 @@ public class Utils {
     RECORD_FIELDS_NO_ARRAY,
     ENUM_SYMBOLS_NO_ARRAY,
     FIXED_SIZE_NO_INT,
-    INVALID_ARRAY
+    INVALID_ARRAY,
+    // Aggiunto dopo il report Jacoco sul metodo parseCompleteSchema
+    TEXTUAL
   }
 
 }

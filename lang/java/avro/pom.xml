@@ -251,19 +251,17 @@
             <groupId>org.pitest</groupId>
             <artifactId>pitest-maven</artifactId>
             <version>${pitest.version}</version>
-            <!--dependencies>
-              <dependency>
-                <groupId>org.pitest</groupId>
-                <artifactId>pitest-junit5-plugin</artifactId>
-                <version>1.2.0</version>
-              </dependency>
-            </dependencies-->
             <configuration>
               <targetClasses>
                 <param>org.apache.avro.Schema</param>
               </targetClasses>
               <targetTests>
                 <param>org.apache.avro.TestSchemaNullJsonNode</param>
+                <param>org.apache.avro.TestSchemaInvalidNames</param>
+                <param>org.apache.avro.TestSchemaMalformedJsonNode</param>
+                <param>org.apache.avro.TestSchemaModifiedSuite</param>
+                <param>org.apache.avro.TestSchemaNullNames</param>
+                <param>org.apache.avro.TestSchemaValidNames</param>
               </targetTests>
               <avoidCallsTo>
                 <avoidCallsTo>org.slf4j</avoidCallsTo>

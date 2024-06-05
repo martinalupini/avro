@@ -37,6 +37,8 @@ public class TestSchemaModifiedSuite {
         {getJsonNode(TypeJson.ENUM_SYMBOLS_NO_ARRAY), "valid", null, true},
         {getJsonNode(TypeJson.FIXED_SIZE_NO_INT), "valid", null, true},
         {getJsonNode(TypeJson.INVALID_ARRAY), "valid", null, true},
+        // Dopo report Jacoco metodo parseCompleteSchema
+        {getJsonNode(TypeJson.TEXTUAL), "valid", null, false},
 
     });
   }
