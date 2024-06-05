@@ -15,5 +15,4 @@ public class MockNames extends Schema.Names {
     throw new RuntimeException("get not available");
   }
 
-
 }
