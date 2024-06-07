@@ -63,13 +63,15 @@ public class Utils {
 
   }
 
+
+
   public static Schema getEmptyUnion(){
     Schema schema = Schema.createUnion();
     return schema;
   }
 
   public static Schema getFixed(String name, int size){
-    return Schema.createFixed("md5", null, namespace, 16);
+    return Schema.createFixed(name, null, namespace, size);
   }
 
   public static Schema getError(){
@@ -97,6 +99,16 @@ public class Utils {
     schema.addProp("logicalType", "decimal");
     schema.addProp("precision", 4);
 
+    return schema;
+  }
+
+  public static Schema getIncompleteEnum(String name){
+
+    List<String> enumValues = new ArrayList<>();
+    enumValues.add("SPADES");
+    enumValues.add("HEARTS");
+    enumValues.add("DIAMONDS");
+    Schema schema = Schema.createEnum(name, null, namespace, enumValues);
     return schema;
   }
 
