@@ -26,7 +26,7 @@ public class TestSchemaModifiedSuite {
   public static Collection<Object[]> getParameters() throws JsonProcessingException {
     return Arrays.asList(new Object[][]{
 
-        // Dopo report Jacoco
+        // Dopo report Jacoco parseNamesDeclared
         {getJsonNode(TypeJson.ERROR), "valid", getError(), false},
         {getJsonNode(TypeJson.EMPTY_RECORD), "valid", null, true},
         {getJsonNode(TypeJson.EMPTY_ENUM), "valid", null, true},
@@ -39,6 +39,8 @@ public class TestSchemaModifiedSuite {
         {getJsonNode(TypeJson.INVALID_ARRAY), "valid", null, true},
         // Dopo report Jacoco metodo parseCompleteSchema
         {getJsonNode(TypeJson.TEXTUAL), "valid", null, false},
+        // Dopo report PIT sul metodo parseNamesDeclared
+        {getJsonNode(TypeJson.LOGICAL_TYPE), "valid", getLogicalTypeSchema(), false},
 
     });
   }
@@ -57,10 +59,15 @@ public class TestSchemaModifiedSuite {
 
       Schema actualSchema = Schema.parse(schema, names);
       assertFalse("An exception was expected.", expectedException);
-      assertEquals(expectedSchema, actualSchema);
+      assertEquals("Schema is different",expectedSchema, actualSchema);
+
+      // Dopo report PIT sul metodo parseNamesDeclared
+      if(expectedSchema != null){
+        assertEquals(LogicalTypes.fromSchemaIgnoreInvalid(expectedSchema), actualSchema.getLogicalType());
+        System.out.println(actualSchema.getLogicalType());
+      }
 
     } catch (Exception e) {
-      System.out.println(e.getMessage());
       assertTrue("Unexpected exception",expectedException);
     }
 

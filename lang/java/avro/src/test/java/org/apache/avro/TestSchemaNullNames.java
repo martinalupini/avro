@@ -62,6 +62,11 @@ public class TestSchemaNullNames {
       assertEquals(expectedSchema, actualSchema);
       assertFalse("An exception was expected.", expectedException);
 
+      // Dopo report PIT sul metodo parseNamesDeclared
+      if(expectedSchema != null){
+        assertEquals(LogicalTypes.fromSchemaIgnoreInvalid(expectedSchema), actualSchema.getLogicalType());
+      }
+
     } catch (Exception e) {
       assertTrue(expectedException);
     }

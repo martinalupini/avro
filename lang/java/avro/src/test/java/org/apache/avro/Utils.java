@@ -92,6 +92,14 @@ public class Utils {
   }
 
 
+  public static Schema getLogicalTypeSchema() throws JsonProcessingException {
+    Schema schema = Schema.create(Schema.Type.BYTES);
+    schema.addProp("logicalType", "decimal");
+    schema.addProp("precision", 4);
+
+    return schema;
+  }
+
 
 
   /*
@@ -273,8 +281,14 @@ public class Utils {
 
     case TEXTUAL:
       jsonNode = mapper.valueToTree("hello");
+      break;
 
+    case LOGICAL_TYPE:
+      str = "{\"type\":\"bytes\",\"logicalType\":\"decimal\",\"precision\":4}";
+      jsonNode = mapper.readTree(str);
+      break;
     }
+
 
     return jsonNode;
 
@@ -354,7 +368,8 @@ public class Utils {
     FIXED_SIZE_NO_INT,
     INVALID_ARRAY,
     // Aggiunto dopo il report Jacoco sul metodo parseCompleteSchema
-    TEXTUAL
+    TEXTUAL,
+    LOGICAL_TYPE
   }
 
 }

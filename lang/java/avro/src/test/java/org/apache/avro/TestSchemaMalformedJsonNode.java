@@ -54,6 +54,11 @@ public class TestSchemaMalformedJsonNode {
       assertFalse("An exception was expected.", expectedException);
       assertEquals(expectedSchema, actualSchema);
 
+      // Dopo report PIT sul metodo parseNamesDeclared
+      if(expectedSchema != null){
+        assertEquals(LogicalTypes.fromSchemaIgnoreInvalid(expectedSchema), actualSchema.getLogicalType());
+      }
+
     } catch (Exception e) {
       System.out.println(e.getMessage());
       assertTrue("Unexpected exception",expectedException);
