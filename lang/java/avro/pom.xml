@@ -254,6 +254,7 @@
             <configuration>
               <targetClasses>
                 <param>org.apache.avro.Schema</param>
+                <param>org.apache.avro.SchemaCompatibility</param>
               </targetClasses>
               <targetTests>
                 <param>org.apache.avro.TestSchemaNullJsonNode</param>
@@ -262,6 +263,11 @@
                 <param>org.apache.avro.TestSchemaModifiedSuite</param>
                 <param>org.apache.avro.TestSchemaNullNames</param>
                 <param>org.apache.avro.TestSchemaValidNames</param>
+                <param>org.apache.avro.TestSchemaCompatibilityCompatible</param>
+                <param>org.apache.avro.TestSchemaCompatibilityIncompatible</param>
+                <param>org.apache.avro.TestSchemaCompatibilitySemicompatibility</param>
+                <param>org.apache.avro.TestSchemaCompatibilityTypeMismatch</param>
+                <param>org.apache.avro.TestSchemaCompatibilityModifiedSuite</param>
               </targetTests>
               <avoidCallsTo>
                 <avoidCallsTo>org.slf4j</avoidCallsTo>
