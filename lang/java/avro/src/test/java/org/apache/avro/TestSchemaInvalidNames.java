@@ -35,12 +35,12 @@ public class TestSchemaInvalidNames {
         {getJsonNode(TypeJson.DOUBLE), "invalid", Schema.create(DOUBLE), true},
         {getJsonNode(TypeJson.BYTES), "invalid", Schema.create(BYTES), true},
         {getJsonNode(TypeJson.STRING), "invalid", Schema.create(STRING), true},
-        {getJsonNode(TypeJson.RECORD), "invalid", getRecord(), true},
-        {getJsonNode(TypeJson.ENUM), "invalid", getEnum(), true},
+        {getJsonNode(TypeJson.RECORD), "invalid", getRecord("LongList"), true},
+        {getJsonNode(TypeJson.ENUM), "invalid", getEnum("Suit"), true},
         {getJsonNode(TypeJson.ARRAY), "invalid", getArray(), true},
         {getJsonNode(TypeJson.MAP), "invalid", getMap(), true},
         {getJsonNode(TypeJson.UNION), "invalid", getUnion(), true},
-        {getJsonNode(TypeJson.FIXED), "invalid", getFixed(), true},
+        {getJsonNode(TypeJson.FIXED), "invalid", getFixed("md5", 16), true},
         {getJsonNode(TypeJson.INVALID), "invalid", null, true},
 
 

@@ -11,27 +11,27 @@ public class Utils {
 
   private static String namespace = "org.apache.avro";
 
-  public static Schema getRecord(){
+  public static Schema getRecord(String name){
 
     Schema longSchema = Schema.create(Schema.Type.LONG);
     Schema.Field field = new Schema.Field("value", longSchema, null, null);
     List<Schema.Field> recordFields = new ArrayList<>();
     recordFields.add(field);
 
-    Schema schema = Schema.createRecord("LongList", null, namespace, false, recordFields);
+    Schema schema = Schema.createRecord(name, null, namespace, false, recordFields);
     schema.addAlias("LinkedLongs");
 
     return schema;
   }
 
-  public static Schema getEnum(){
+  public static Schema getEnum(String name){
 
     List<String> enumValues = new ArrayList<>();
     enumValues.add("SPADES");
     enumValues.add("HEARTS");
     enumValues.add("DIAMONDS");
     enumValues.add("CLUBS");
-    Schema schema = Schema.createEnum("Suit", null, namespace, enumValues);
+    Schema schema = Schema.createEnum(name, null, namespace, enumValues);
     return schema;
   }
 
@@ -68,7 +68,7 @@ public class Utils {
     return schema;
   }
 
-  public static Schema getFixed(){
+  public static Schema getFixed(String name, int size){
     return Schema.createFixed("md5", null, namespace, 16);
   }
 
@@ -92,7 +92,7 @@ public class Utils {
   }
 
 
-  public static Schema getLogicalTypeSchema() throws JsonProcessingException {
+  public static Schema getLogicalTypeSchema() {
     Schema schema = Schema.create(Schema.Type.BYTES);
     schema.addProp("logicalType", "decimal");
     schema.addProp("precision", 4);

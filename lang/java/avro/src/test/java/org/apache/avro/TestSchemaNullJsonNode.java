@@ -35,12 +35,12 @@ public class TestSchemaNullJsonNode {
         {null, "valid", Schema.create(DOUBLE), true},
         {null, "valid", Schema.create(BYTES), true},
         {null, "valid", Schema.create(STRING), true},
-        {null, "valid", getRecord(), true},
-        {null, "valid", getEnum(), true},
+        {null, "valid", getRecord("LongList"), true},
+        {null, "valid", getEnum("Suit"), true},
         {null, "valid", getArray(), true},
         {null, "valid", getMap(), true},
         {null, "valid", getUnion(), true},
-        {null, "valid", getFixed(), true},
+        {null, "valid", getFixed("md5", 16), true},
         {null, "valid", null, true},
 
 

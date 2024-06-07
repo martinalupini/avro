@@ -35,12 +35,12 @@ public class TestSchemaNullNames {
         {getJsonNode(TypeJson.DOUBLE), null, Schema.create(DOUBLE), true},
         {getJsonNode(TypeJson.BYTES), null, Schema.create(BYTES), true},
         {getJsonNode(TypeJson.STRING), null, Schema.create(STRING), true},
-        {getJsonNode(TypeJson.RECORD), null, getRecord(), true},
-        {getJsonNode(TypeJson.ENUM), null, getEnum(), true },
+        {getJsonNode(TypeJson.RECORD), null, getRecord("LongList"), true},
+        {getJsonNode(TypeJson.ENUM), null, getEnum("Suit"), true },
         {getJsonNode(TypeJson.ARRAY), null, getArray(), true},
         {getJsonNode(TypeJson.MAP), null, getMap(), true},
         {getJsonNode(TypeJson.UNION), null, getUnion(), true},
-        {getJsonNode(TypeJson.FIXED), null, getFixed(), true},
+        {getJsonNode(TypeJson.FIXED), null, getFixed("md5", 16), true},
         {getJsonNode(TypeJson.INVALID), null, null, true},
 
     });
