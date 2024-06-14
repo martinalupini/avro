@@ -3,6 +3,7 @@ package org.apache.avro;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import org.mockito.Answers;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -59,12 +60,15 @@ public class TestSchemaCompatibilityIncompatible {
         // Schema reader non valido
         {getInvalidSchema(), Schema.create(NULL), null, null, true},
 
+        // Schema writer non valido
+        {Schema.create(NULL), getInvalidSchema(), null, null, true},
+
     });
   }
 
   private static Schema getInvalidSchema(){
     Schema schema = mock(Schema.class);
-    when(schema.getType()).thenReturn(null);
+    when(schema.getType()).thenThrow( new RuntimeException("getType() not available"));
     return schema;
   }
 

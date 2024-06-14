@@ -368,7 +368,7 @@ public class Utils {
     FIXED,
     INVALID,
     NON_EXISTENT,
-    // Aggiunto dopo il report Jacoco
+    // Aggiunto dopo il report Jacoco sul metodo parseNamesDeclared
     ERROR,
     NUMBER,
     ENUM_DEFAULT,
